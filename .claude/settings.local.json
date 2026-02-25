@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(tail:*)",
-      "Bash(cd D:/JJBcode/Claude/chore-app/backend && npx prisma migrate dev --name init 2>&1)"
-    ]
-  }
-}
