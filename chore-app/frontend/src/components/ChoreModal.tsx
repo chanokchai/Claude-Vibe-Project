@@ -135,7 +135,7 @@ export function ChoreModal(props: Props) {
 
   async function handleMarkComplete(e: React.FormEvent) {
     e.preventDefault();
-    if (!event || !completedBy.trim()) { setError('Please enter your name'); return; }
+    if (!event || !completedBy) { setError('Please select who completed this'); return; }
     setCompletionLoading(true);
     setError('');
     try {
@@ -238,17 +238,20 @@ export function ChoreModal(props: Props) {
                   <form onSubmit={handleMarkComplete} className="space-y-3">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Mark as Done</label>
-                      <input
-                        type="text"
+                      <select
                         value={completedBy}
                         onChange={e => setCompletedBy(e.target.value)}
-                        placeholder="Your name"
                         className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
+                      >
+                        <option value="">Select member…</option>
+                        {props.members.map(m => (
+                          <option key={m.id} value={m.name}>{m.name}</option>
+                        ))}
+                      </select>
                     </div>
                     <button
                       type="submit"
-                      disabled={completionLoading || !completedBy.trim()}
+                      disabled={completionLoading || !completedBy}
                       className="w-full bg-green-500 hover:bg-green-600 disabled:opacity-50 text-white py-2 rounded-lg text-sm font-medium"
                     >
                       {completionLoading ? 'Saving…' : 'Mark Complete'}
