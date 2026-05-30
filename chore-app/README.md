@@ -27,6 +27,7 @@ A browser-based office chore management app with an Outlook-style shared calenda
 
 ```bash
 cd backend
+cp .env.example .env
 npm install
 npx prisma migrate dev --name init
 npm run dev
@@ -34,7 +35,8 @@ npm run dev
 
 The API server starts at **http://localhost:3000**.
 
-> The SQLite database file is created at `backend/prisma/dev.db`. All data is stored locally on the host machine.
+> **`cp .env.example .env`** must be run before migrations — Prisma needs `DATABASE_URL` to create the SQLite database.
+> The database file is created at `backend/dev.db` and stored locally on the host machine.
 
 ### 2. Frontend
 
@@ -124,7 +126,7 @@ chore-app/
      url      = env("DATABASE_URL")
    }
    ```
-2. Update `backend/.env`:
+2. Update `DATABASE_URL` in `backend/.env`:
    ```
    DATABASE_URL="postgresql://user:password@host:5432/dbname"
    ```
