@@ -63,8 +63,17 @@ npm run preview      # Preview production build
 
 ### First-time Setup
 ```bash
-cd chore-app/backend && npm install && npx prisma migrate dev --name init && npm run dev
-cd chore-app/frontend && npm install && npm run dev
+# Backend
+cd chore-app/backend
+cp .env.example .env        # create env file before anything else
+npm install
+npx prisma migrate dev --name init
+npm run dev
+
+# Frontend (separate terminal)
+cd chore-app/frontend
+npm install
+npm run dev
 ```
 
 ---
@@ -89,6 +98,11 @@ DELETE /api/completions/:id                   # Unmark completion
 ---
 
 ## Environment
+
+Copy `.env.example` to `.env` before running migrations or the dev server:
+```bash
+cp chore-app/backend/.env.example chore-app/backend/.env
+```
 
 **`chore-app/backend/.env`**
 ```
