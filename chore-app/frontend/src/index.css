@@ -32,3 +32,54 @@
   border-radius: 4px !important;
   padding: 2px 4px !important;
 }
+
+/* FullCalendar dark mode overrides */
+.dark .fc {
+  color: #e5e7eb;
+}
+
+.dark .fc-theme-standard td,
+.dark .fc-theme-standard th,
+.dark .fc-theme-standard .fc-scrollgrid {
+  border-color: #374151 !important;
+}
+
+.dark .fc .fc-daygrid-day {
+  background-color: #1f2937;
+}
+
+.dark .fc .fc-daygrid-day:hover,
+.dark .fc .fc-day-today {
+  background-color: #374151 !important;
+}
+
+.dark .fc .fc-col-header-cell {
+  background-color: #111827;
+}
+
+.dark .fc .fc-toolbar-title {
+  color: #f9fafb;
+}
+
+.dark .fc .fc-button {
+  background-color: #2563eb !important;
+  border-color: #2563eb !important;
+}
+
+.dark .fc .fc-button:hover {
+  background-color: #1d4ed8 !important;
+  border-color: #1d4ed8 !important;
+}
+
+.dark .fc .fc-daygrid-day-number,
+.dark .fc .fc-col-header-cell-cushion {
+  color: #d1d5db;
+}
+
+.dark .fc .fc-more-link {
+  color: #93c5fd;
+}
+
+.dark .fc-highlight {
+  background: #374151 !important;
+}

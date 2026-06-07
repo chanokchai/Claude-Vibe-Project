@@ -208,3 +208,19 @@ Check these files when working on the relevant areas:
 | Topic | File |
 |---|---|
 | Architectural patterns, design decisions, conventions | `.claude/docs/architectural_patterns.md` |
+
+---
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues (`github.com/chanokchai/Claude-Vibe-Project`). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Using default canonical label vocabulary. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context — one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
