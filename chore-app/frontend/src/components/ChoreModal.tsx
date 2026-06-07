@@ -180,13 +180,13 @@ export function ChoreModal(props: Props) {
         <div className="absolute inset-0 bg-black/40" onClick={props.onClose} />
 
         {/* Modal */}
-        <div className="relative z-10 bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+        <div className="relative z-10 bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b">
-            <h2 className="text-lg font-semibold text-gray-800">
+          <div className="flex items-center justify-between px-6 py-4 border-b dark:border-gray-700">
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
               {isFormMode && !editMode ? 'New Chore' : editMode ? 'Edit Chore' : 'Chore Details'}
             </h2>
-            <button onClick={props.onClose} className="text-gray-400 hover:text-gray-600 text-2xl leading-none">
+            <button onClick={props.onClose} className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 text-2xl leading-none">
               &times;
             </button>
           </div>
@@ -196,22 +196,22 @@ export function ChoreModal(props: Props) {
             {isView && !editMode && event && (
               <>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
                     {event.title.replace(event.extendedProps.assigneeName ? ` (${event.extendedProps.assigneeName})` : '', '')}
                   </h3>
                   {event.extendedProps.assigneeName && (
-                    <p className="text-sm text-gray-500 mt-0.5">Assigned to: <span className="font-medium">{event.extendedProps.assigneeName}</span></p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Assigned to: <span className="font-medium">{event.extendedProps.assigneeName}</span></p>
                   )}
-                  <p className="text-sm text-gray-500 mt-0.5">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
                     Date: <span className="font-medium">{new Date(event.extendedProps.occurrenceDate).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
                   </p>
                   {event.extendedProps.recurrence !== 'none' && (
-                    <p className="text-sm text-gray-500 mt-0.5">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
                       Recurrence: <span className="font-medium capitalize">{event.extendedProps.recurrence}</span>
                     </p>
                   )}
                   {event.extendedProps.description && (
-                    <p className="text-sm text-gray-600 mt-2 bg-gray-50 rounded p-2">{event.extendedProps.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 bg-gray-50 dark:bg-gray-700 rounded p-2">{event.extendedProps.description}</p>
                   )}
                 </div>
 
@@ -237,11 +237,11 @@ export function ChoreModal(props: Props) {
                 ) : (
                   <form onSubmit={handleMarkComplete} className="space-y-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Mark as Done</label>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mark as Done</label>
                       <select
                         value={completedBy}
                         onChange={e => setCompletedBy(e.target.value)}
-                        className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="">Select member…</option>
                         {props.members.map(m => (
@@ -262,16 +262,16 @@ export function ChoreModal(props: Props) {
                 {error && <p className="text-red-500 text-sm">{error}</p>}
 
                 {/* Action buttons */}
-                <div className="flex gap-2 pt-2 border-t">
+                <div className="flex gap-2 pt-2 border-t dark:border-gray-700">
                   <button
                     onClick={() => setShowHistory(true)}
-                    className="flex-1 text-sm py-2 rounded-lg border border-gray-300 hover:bg-gray-50 text-gray-600"
+                    className="flex-1 text-sm py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
                   >
                     View History
                   </button>
                   <button
                     onClick={enterEditMode}
-                    className="flex-1 text-sm py-2 rounded-lg border border-blue-300 hover:bg-blue-50 text-blue-600"
+                    className="flex-1 text-sm py-2 rounded-lg border border-blue-300 dark:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-blue-600 dark:text-blue-400"
                   >
                     Edit Chore
                   </button>
@@ -289,34 +289,34 @@ export function ChoreModal(props: Props) {
             {isFormMode && (
               <form onSubmit={editMode ? handleUpdate : handleCreate} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title *</label>
                   <input
                     type="text"
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                     placeholder="e.g. Clean the coffee machine"
                     required
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
                   <textarea
                     value={description}
                     onChange={e => setDescription(e.target.value)}
                     placeholder="Optional notes…"
                     rows={2}
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                    className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Assign To</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assign To</label>
                   <select
                     value={assignedToId}
                     onChange={e => setAssignedToId(e.target.value ? Number(e.target.value) : '')}
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Unassigned</option>
                     {props.members.map(m => (
@@ -326,11 +326,11 @@ export function ChoreModal(props: Props) {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Recurrence</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Recurrence</label>
                   <select
                     value={recurrence}
                     onChange={e => setRecurrence(e.target.value as RecurrenceType)}
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="none">One-time</option>
                     <option value="daily">Daily</option>
@@ -341,7 +341,7 @@ export function ChoreModal(props: Props) {
 
                 {recurrence === 'weekly' && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Days of Week</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Days of Week</label>
                     <div className="flex gap-1 flex-wrap">
                       {WEEKDAYS.map(d => (
                         <button
@@ -351,50 +351,50 @@ export function ChoreModal(props: Props) {
                           className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
                             weeklyDays.includes(d.value)
                               ? 'bg-blue-500 text-white border-blue-500'
-                              : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'
+                              : 'bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-blue-400'
                           }`}
                         >
                           {d.label}
                         </button>
                       ))}
                     </div>
-                    <p className="text-xs text-gray-400 mt-1">Defaults to start date's day if none selected.</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Defaults to start date's day if none selected.</p>
                   </div>
                 )}
 
                 {recurrence === 'monthly' && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Day(s) of Month</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Day(s) of Month</label>
                     <input
                       type="text"
                       value={monthlyDates}
                       onChange={e => setMonthlyDates(e.target.value)}
                       placeholder="e.g. 1, 15"
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    <p className="text-xs text-gray-400 mt-1">Comma-separated day numbers (1–31). Defaults to start date's day.</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Comma-separated day numbers (1–31). Defaults to start date's day.</p>
                   </div>
                 )}
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Start Date *</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Start Date *</label>
                     <input
                       type="date"
                       value={startDate}
                       onChange={e => setStartDate(e.target.value)}
                       required
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">End Date</label>
                     <input
                       type="date"
                       value={endDate}
                       onChange={e => setEndDate(e.target.value)}
                       min={startDate}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -406,7 +406,7 @@ export function ChoreModal(props: Props) {
                     <button
                       type="button"
                       onClick={() => setEditMode(false)}
-                      className="flex-1 py-2 rounded-lg border border-gray-300 text-sm text-gray-600 hover:bg-gray-50"
+                      className="flex-1 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
                     >
                       Cancel
                     </button>

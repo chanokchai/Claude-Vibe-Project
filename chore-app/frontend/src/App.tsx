@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useLayoutEffect } from 'react';
 import { CalendarView } from './components/CalendarView';
 import { ChoreModal } from './components/ChoreModal';
 import { TeamMembersPanel } from './components/TeamMembersPanel';
@@ -16,6 +16,17 @@ export default function App() {
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [refreshKey, setRefreshKey] = useState(0);
   const calendarRefreshRef = useRef<(() => void) | null>(null);
+
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    if (saved) return saved === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+
+  useLayoutEffect(() => {
+    document.documentElement.classList.toggle('dark', isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }, [isDark]);
 
   // Load members on mount
   useEffect(() => {
@@ -52,12 +63,12 @@ export default function App() {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col bg-gray-100">
+    <div className="h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
       {/* Top bar */}
-      <header className="bg-white border-b shadow-sm px-4 py-3 flex items-center justify-between flex-shrink-0">
+      <header className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 shadow-sm px-4 py-3 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-3">
           <span className="text-2xl">🧹</span>
-          <h1 className="text-xl font-bold text-gray-800">Office Chore Board</h1>
+          <h1 className="text-xl font-bold text-gray-800 dark:text-gray-100">Office Chore Board</h1>
         </div>
         <div className="flex gap-2">
           <button
@@ -68,15 +79,22 @@ export default function App() {
           </button>
           <button
             onClick={() => setShowTeamPanel(true)}
-            className="border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium"
+            className="border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg text-sm font-medium"
           >
             Team Members
+          </button>
+          <button
+            onClick={() => setIsDark(d => !d)}
+            className="border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-2 rounded-lg text-sm"
+            aria-label="Toggle dark mode"
+          >
+            {isDark ? '☀️' : '🌙'}
           </button>
         </div>
       </header>
 
       {/* Legend */}
-      <div className="bg-white border-b px-4 py-1.5 flex items-center gap-6 text-xs text-gray-500 flex-shrink-0">
+      <div className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 px-4 py-1.5 flex items-center gap-6 text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
         <span className="flex items-center gap-1.5">
           <span className="inline-block w-3 h-3 rounded-sm bg-blue-500" /> Upcoming
         </span>
@@ -86,12 +104,12 @@ export default function App() {
         <span className="flex items-center gap-1.5">
           <span className="inline-block w-3 h-3 rounded-sm bg-red-500" /> Overdue
         </span>
-        <span className="ml-auto text-gray-400">Click a date to add a chore • Click an event to view/complete</span>
+        <span className="ml-auto text-gray-400 dark:text-gray-500">Click a date to add a chore • Click an event to view/complete</span>
       </div>
 
       {/* Calendar */}
       <main className="flex-1 p-4 overflow-hidden">
-        <div className="bg-white rounded-xl shadow-sm h-full p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm h-full p-4">
           <CalendarView
             key={refreshKey}
             onEventClick={handleEventClick}
